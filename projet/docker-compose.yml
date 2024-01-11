@@ -6,7 +6,7 @@ services:
       - db-data:/var/lib/mysql
     environment:
       MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
-      MYSQL_DATABASE: "api_backend" #création de la DB sf-react
+      MYSQL_DATABASE: "api_backend" #création de la bdd
     networks:
       - dev
 
