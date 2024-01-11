@@ -3,3 +3,5 @@ uvicorn
 pydantic
 sqlalchemy
 mysqlclient
+passlib[bcrypt]==1.7.4
+python-jose[cryoptography]==3.3.0
