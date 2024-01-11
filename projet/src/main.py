@@ -2,10 +2,10 @@
 from fastapi import FastAPI, Depends, HTTPException
 from sqlalchemy.orm import Session
 from fastapi.responses import JSONResponse
-from .config.model import Utilisateur, Sport, BDD
-from .config.BaseDeDonnee import SessionLocal, engine
+from .config.tables import Utilisateur, Sport, BDD
+from .config.BaseDeDonnee import SessionLocal, ConnexionBDD
 #va créer les tables lors de l'execution de la commande docker-compose up
-BDD.metadata.create_all(bind=engine)
+BDD.metadata.create_all(bind=ConnexionBDD)
 
 app = FastAPI()
 

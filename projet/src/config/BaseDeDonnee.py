@@ -3,10 +3,10 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 
 SQLALCHEMY_DATABASE_URL = "mysql://root@db/api_backend" 
-#create_engine: Cette fonction de SQLAlchemy crée un objet Engine qui représente la connexion à la base de données.
-engine = create_engine(SQLALCHEMY_DATABASE_URL)
+#l'objet ConnexionBDD utilise la fonction create_engine qui permet la connexion à la base de données.
+ConnexionBDD = create_engine(SQLALCHEMY_DATABASE_URL)
 
-SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=ConnexionBDD)
 """
    - sessionmaker: Cette fonction crée une classe SessionLocal
 
@@ -16,7 +16,7 @@ SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
    - autoflush=False: Désactive le mode "autoflush". L'autoflush peut déclencher automatiquement la synchronisation 
      entre la session et la base de données pour assurer la cohérence des données, mais ici, il est désactivé.
 
-   - bind=engine: Lie la session à l'objet Engine créé précédemment. Cela signifie que toutes les opérations effectuées 
+   - bind=ConnexionBDD: Lie la session à l'objet ConnexionBDD créé précédemment. Cela signifie que toutes les opérations effectuées 
      avec cette session seront exécutées sur la base de données définie par l'URL de connexion.
  
  """
