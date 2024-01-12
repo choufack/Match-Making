@@ -27,7 +27,7 @@ async def inscription(data: SchemaUser, db: Session = Depends(get_db)):
     """
 
     await CompteUser(formulaire=data, db=db)
-    return CompteUser()
+    return 
 
 
 

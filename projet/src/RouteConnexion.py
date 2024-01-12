@@ -1,7 +1,10 @@
 from fastapi import APIRouter, status, Depends
-from fastapi.security import OAuth2PasswordRequestForm 
+from fastapi.security import OAuth2PasswordRequestForm, decrypt_mdp
 from BaseDeDonnee import get_db
 from sqlalchemy import Session
+from tables import Utilisateur
+from fastapi.exceptions import HTTPException
+
 
 router = APIRouter(
     prefix="/Connexion",
@@ -14,6 +17,25 @@ async def  authentification(data: OAuth2PasswordRequestForm = Depends(), db: Ses
 
 
 async def get_token(data, db):
-    pass
-    # TO DO 
-    # fonction permettant de recup le token de hashage du mdp
+    #il faut d'abord savoir si le visiteur du site a bien un compte ou non
+    #et pour ca, nous allons check dans la bdd
+
+    exist = db.query(Utilisateur).filter(Utilisateur.email == data).first()
+    if not exist:
+        raise HTTPException(
+            status_code=400,
+            detail="le compte n'existe pas"
+        )
+    
+    if decrypt_mdp(data.mdp, exist.mdp):
+       raise HTTPException(
+            status_code=400,
+            detail="mauvais Email ou mot de passe."
+       )
+    
+    return ''
+
+
+    
+
+
