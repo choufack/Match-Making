@@ -11,7 +11,7 @@ from .securite import hash_mdp
 router = APIRouter(
      prefix="/Inscription",     #préfixe URL
     tags=["User"],      #pour organiser et documenter la route user
-    responses={404: {"erreur": "SchemaUser non-trouvé!"}}
+    responses={404: {"erreur": "url non trouvé"}}
 
 )
 
@@ -27,7 +27,7 @@ async def inscription(data: SchemaUser, db: Session = Depends(get_db)):
     """
 
     await CompteUser(formulaire=data, db=db)
-    return CompteUser
+    return CompteUser()
 
 
 
