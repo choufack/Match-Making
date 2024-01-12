@@ -21,4 +21,12 @@ SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=ConnexionBDD
  
  """
 #Cette fonction crée une classe BDD dans cet exemple, à partir de laquelle toutes les classes de modèle SQLAlchemy devraient hériter. 
+# générateur
+def get_db():
+    db = SessionLocal()
+    try:                    #try : La partie où le code tente d'exécuter le bloc de code à l'intérieur duquel une ressource (la connexion à la base de données dans ce cas) est acquise.
+        yield db            #yield. Les générateurs en Python sont des itérables spéciaux qui permettent de suspendre et de reprendre l'exécution.
+    finally:                #finally : Cette partie garantit que, quel que soit le résultat du bloc try, le code dans le bloc finally sera exécuté. Ici, cela assure que la connexion à la base de données est toujours fermée, même en cas d'erreur.
+        db.close()
+
 BDD = declarative_base()

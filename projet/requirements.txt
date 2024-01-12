@@ -1,7 +1,8 @@
 fastapi
 uvicorn
-pydantic
+pydantic[email]
 sqlalchemy
 mysqlclient
 passlib[bcrypt]==1.7.4
 python-jose[cryoptography]==3.3.0
+config

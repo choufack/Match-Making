@@ -9,7 +9,7 @@ class Utilisateur(BDD):
     nom = Column(String(50))
     prenom = Column(String(50))
     email = Column(String(50)) 
-    mdp = Column(String(50))
+    mdp = Column(String(250))
     ville = Column(String(50))
     sport = Column(String(50))
 

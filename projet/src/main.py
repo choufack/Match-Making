@@ -2,23 +2,20 @@
 from fastapi import FastAPI, Depends, HTTPException
 from sqlalchemy.orm import Session
 from fastapi.responses import JSONResponse
-from .config.tables import Utilisateur, Sport, BDD
-from .config.BaseDeDonnee import SessionLocal, ConnexionBDD
+from .tables import Utilisateur, Sport, BDD
+from .BaseDeDonnee import SessionLocal, ConnexionBDD
+#from .Routes.user.SchemaUser import SchemaUser
+from .UseRoutes import router as Urouteur
 #va créer les tables lors de l'execution de la commande docker-compose up
 BDD.metadata.create_all(bind=ConnexionBDD)
 
 app = FastAPI()
 
-# générateur
-def get_db():
-    db = SessionLocal()
-    try:                    #try : La partie où le code tente d'exécuter le bloc de code à l'intérieur duquel une ressource (la connexion à la base de données dans ce cas) est acquise.
-        yield db            #yield. Les générateurs en Python sont des itérables spéciaux qui permettent de suspendre et de reprendre l'exécution.
-    finally:                #finally : Cette partie garantit que, quel que soit le résultat du bloc try, le code dans le bloc finally sera exécuté. Ici, cela assure que la connexion à la base de données est toujours fermée, même en cas d'erreur.
-        db.close()
 
-#route
+#routes
 
-@app.get('/test')
-def salutation():
-    return JSONResponse(content={"status": "API opérationnelle!"})
+app.include_router(Urouteur)
+
+
+
+
